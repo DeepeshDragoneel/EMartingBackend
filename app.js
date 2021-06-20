@@ -71,12 +71,12 @@ mongoose
         userModel.save();
       }
     }); */
-    app.listen(port, (e) => {
-      if (e) {
-        console.log(e);
-      } else {
-        console.log(`CONNECTION TO EXPRESS ESTABLISHED at port${port}`);
-      }
+    app.listen((process.env.PORT || 8000), (e) => {
+        if (e) {
+            console.log(e);
+        } else {
+            console.log(`CONNECTION TO EXPRESS ESTABLISHED at port${port}`);
+        }
     });
   })
   .catch((error) => {
