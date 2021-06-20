@@ -9,7 +9,7 @@ const morgan = require('morgan');
 const fileUpload = require("express-fileupload");
 
 // const adminData = require('./routes/admin');
-// const customerRoutes = require('./routes/customers');
+const customerRoutes = require('./routes/customers');
 // const productController = require('./controllers/productController');
 // const database = require('./util/database');
 // const User = require('./models/user');
@@ -40,11 +40,9 @@ app.use("/uploads", express.static("./uploads"));
 // })
 // app.use('/admin', adminData.routes);
 
-// app.use(customerRoutes);
+app.use(customerRoutes);
 
 // app.use(productController.getErrorPage);
-
-const port = process.env.port || 8000;
 
 mongoose
   .connect(
