@@ -196,7 +196,7 @@ exports.postSignUp = async (req, res, next) => {
                     to: req.body.data.email.trim(),
                     from: "emarting248@gmail.com",
                     subject: "Verify your account!",
-                    html: `<div><h1>Please Verify you Account!</h1><p>Click the Below link to verify your account</p><br/><br/><br/><a href=http://${Baseurl}/auth/verifySignUp/${userToken}>Verifiy Your Email</a></div>`,
+                    html: `<div><h1>Please Verify you Account!</h1><p>Click the Below link to verify your account</p><br/><br/><br/><a href=https://deepeshdragoneel.github.io/auth/verifySignUp/${userToken}>Verifiy Your Email</a></div>`,
                 });
                 console.log("Email res: ", res);
             } catch (error) {
