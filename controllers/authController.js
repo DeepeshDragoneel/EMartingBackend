@@ -196,7 +196,7 @@ exports.postSignUp = async (req, res, next) => {
                     to: req.body.data.email.trim(),
                     from: "emarting248@gmail.com",
                     subject: "Verify your account!",
-                    html: `<div><h1>Please Verify you Account!</h1><p>Click the Below link to verify your account</p><br/><br/><br/><a href=http://${process.env.Baseurl}/auth/verifySignUp/${userToken}>Verifiy Your Email</a></div>`,
+                    html: `<div><h1>Please Verify you Account!</h1><p>Click the Below link to verify your account</p><br/><br/><br/><a href=http://${Baseurl}/auth/verifySignUp/${userToken}>Verifiy Your Email</a></div>`,
                 });
                 console.log("Email res: ", res);
             } catch (error) {
@@ -241,7 +241,7 @@ exports.verifySignUp = async (req, res, next) => {
             console.log("user SingedUp with ID: ", userToken.userid);
             await user.save();
             res.send(
-                `<div><a href=${process.env.BASE_URL}login>Login with you Credentials!</a></div>`
+                `<div><a href=${BASE_URL}login>Login with you Credentials!</a></div>`
             );
         }
         catch(error){
