@@ -198,7 +198,7 @@ exports.postSignUp = async (req, res, next) => {
                     subject: "Verify your account!",
                     html: `<div><h1>Please Verify you Account!</h1><p>Click the Below link to verify your account</p><br/><br/><br/><a href=http://${
                         (process.env, REST_URL)
-                    }/auth/verifySignUp/${userToken}>Verifiy Your Email</a></div>`,
+                    }auth/verifySignUp/${userToken}>Verifiy Your Email</a></div>`,
                 });
                 console.log("Email res: ", res);
             } catch (error) {
