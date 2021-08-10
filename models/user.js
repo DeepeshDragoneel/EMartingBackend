@@ -172,7 +172,7 @@ UserSchema.methods.decrementQuantity = function (product) {
     });
     this.cart.items = newCartItems;
     this.save();
-    
+
     let temp = product;
     temp.quantity = temp.productId.quantity;
     // console.log("temp: ", temp);
@@ -180,7 +180,8 @@ UserSchema.methods.decrementQuantity = function (product) {
 };
 
 UserSchema.methods.deleteCartProduct = function (product) {
-    console.log("DELETECART: ", product._id);
+    console.log("this: ",this);
+    console.log("DeleteCartProduct: ", product._id);
     const newCartItems = this.cart.items.filter(
         (cItem) =>{
             console.log((cItem), " ", (cItem.productId.toString() !== product._id.toString()));

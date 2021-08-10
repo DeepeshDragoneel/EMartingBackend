@@ -93,7 +93,20 @@ UserGoogleSchema.methods.addToCart = function (product) {
 };
 
 UserGoogleSchema.methods.deleteCartProduct = function (product) {
-    console.log("DELETECART: ", product._id);
+    console.log("this: ",this);
+    console.log("DeleteCartProduct: ", product._id);
+    const newCartItems = this.cart.items.filter(
+        (cItem) =>{
+            console.log((cItem), " ", (cItem.productId.toString() !== product._id.toString()));
+            return (cItem.productId !== null &&
+            cItem._id.toString() !== product._id.toString())}
+    );
+    this.cart.items = newCartItems;
+    return this.save();
+};
+
+UserGoogleSchema.methods.deleteCartProductByBook = function (product) {
+    console.log("DELETE_CART_BY_BOOK: ", product._id);
     const newCartItems = this.cart.items.filter(
         (cItem) =>
             cItem.productId !== null &&
@@ -101,6 +114,37 @@ UserGoogleSchema.methods.deleteCartProduct = function (product) {
     );
     this.cart.items = newCartItems;
     return this.save();
+};
+
+UserGoogleSchema.methods.decrementQuantity = function (product) {
+    // console.log("Decrementing Cart product: ", product);
+    const newCartItems = this.cart.items.filter((cItem) => {
+        /* console.log(
+            cItem.productId._id.toString() +
+                " === " +
+                product.productId._id.toString()
+        ); */
+        return (
+            cItem.productId !== null &&
+            cItem.productId._id.toString() !== product.productId._id.toString()
+        );
+    });
+    console.log({
+        productId: product.productId._id.toString(),
+        quantity: product.productId.quantity.toString(),
+    });
+    newCartItems.push({
+        _id: product._id,
+        productId: product.productId._id,
+        quantity: product.productId.quantity,
+    });
+    this.cart.items = newCartItems;
+    this.save();
+
+    let temp = product;
+    temp.quantity = temp.productId.quantity;
+    // console.log("temp: ", temp);
+    return temp;
 };
 
 module.exports = mongoose.model("UserGoogle", UserGoogleSchema);
