@@ -24,7 +24,7 @@ exports.checkAuthorization = async (req, res, next) => {
     try {
         const token = req.body.token;
         const verifyUser = jwt.verify(token, process.env.SECRET_KEY);
-        
+
         // console.log("In auth: ", req.body);
         // console.log("Verify user: ", verifyUser);
         let user;
@@ -32,15 +32,13 @@ exports.checkAuthorization = async (req, res, next) => {
             user = await UserGoogle.findOne({
                 email: verifyUser.email,
             });
-        }
-        else {
+        } else {
             user = await User.findOne({
                 email: verifyUser.email,
             });
         }
         // console.log(user);
         res.json(user);
-
     } catch (error) {
         res.send("ERROR");
     }
@@ -61,7 +59,7 @@ exports.postGoogleLoginIn = async (req, res, next) => {
             res.send("error");
             return;
         }
-        console.log("userGoogle: ",userGoogle);
+        console.log("userGoogle: ", userGoogle);
         const token = jwt.sign(
             {
                 userid: userGoogle._id.toString(),
@@ -87,7 +85,7 @@ exports.postGoogleLoginIn = async (req, res, next) => {
         console.log(error);
         res.send("error");
     }
-}
+};
 
 exports.postGoogleSignUp = async (req, res, next) => {
     try {
@@ -120,9 +118,9 @@ exports.postGoogleSignUp = async (req, res, next) => {
             process.env.SECRET_KEY
         );
         const tokenUser = await jwt.verify(token, process.env.SECRET_KEY);
-        console.log("------------------------------")
+        console.log("------------------------------");
         console.log("USER SIGNED IN AS (ID): ", tokenUser.userid);
-        console.log("------------------------------")
+        console.log("------------------------------");
         userGoogle.tokens.push({
             token: token,
         });
@@ -130,11 +128,9 @@ exports.postGoogleSignUp = async (req, res, next) => {
         await userGoogle.save();
         res.json({
             username: userGoogle.username,
-            token: token
+            token: token,
         });
-
-    }
-    catch (error) {
+    } catch (error) {
         console.log(error);
         res.send("error");
     }
@@ -196,9 +192,7 @@ exports.postSignUp = async (req, res, next) => {
                     to: req.body.data.email.trim(),
                     from: "emarting248@gmail.com",
                     subject: "Verify your account!",
-                    html: `<div><h1>Please Verify you Account!</h1><p>Click the Below link to verify your account</p><br/><br/><br/><a href=${
-                        (process.env.REST_URL)
-                    }auth/verifySignUp/${userToken}>Verifiy Your Email</a></div>`,
+                    html: `<div><h1>Please Verify you Account!</h1><p>Click the Below link to verify your account</p><br/><br/><br/><a href=${process.env.REST_URL}auth/verifySignUp/${userToken}>Verifiy Your Email</a></div>`,
                 });
                 console.log("Email res: ", res);
             } catch (error) {
@@ -243,10 +237,11 @@ exports.verifySignUp = async (req, res, next) => {
             console.log("user SingedUp with ID: ", userToken.userid);
             await user.save();
             res.send(
-                `<div><a href=${process.env.BASE_URL}login>Login with you Credentials!</a></div>`
+                `<div style={{
+                    textAlign: "center",
+                }}><h1>Verification Successfull ✅</h1><br/><a href=${process.env.BASE_URL}login>Login with you credentials on EMarting Website!</a></div>`
             );
-        }
-        catch(error){
+        } catch (error) {
             console.log(error);
         }
     } else {
@@ -255,7 +250,9 @@ exports.verifySignUp = async (req, res, next) => {
 };
 
 exports.verifedSingUp = (req, res, next) => {
-    res.send(`<div><a href=${REACT_APP_BASE_URL}login>Login with you Credentials!</a></div>`);
+    res.send(
+        `<div><a href=${REACT_APP_BASE_URL}login>Login with you Credentials!</a></div>`
+    );
 };
 
 exports.postLogin = async (req, res, next) => {
