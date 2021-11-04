@@ -1,11 +1,11 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const productController = require('../controllers/productController');
+const productController = require("../controllers/productController");
 
 const products = [];
 
 //middleware
-const imageUploader = require('../middleware/upload.js');
+const imageUploader = require("../middleware/upload.js");
 const imageValidator = require("../middleware/pictureImageValidator.js");
 
 router.get("/addProduct", productController.getAddProduct);

@@ -8,7 +8,7 @@ const multer = require('multer');
 const morgan = require('morgan');
 const fileUpload = require("express-fileupload");
 
-// const adminData = require('./routes/admin');
+const adminData = require('./routes/admin');
 const customerRoutes = require('./routes/customers');
 // const productController = require('./controllers/productController');
 // const database = require('./util/database');
@@ -38,7 +38,7 @@ app.use("/uploads", express.static("./uploads"));
 //         console.log(error);
 //       });
 // })
-// app.use('/admin', adminData.routes);
+app.use('/admin', adminData.routes);
 
 app.use(customerRoutes);
 
