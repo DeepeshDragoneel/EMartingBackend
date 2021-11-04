@@ -83,7 +83,7 @@ exports.postComment = async (req, res, next) => {
 
 exports.postAddProduct = async (req, res, next) => {
     // console.log("Add Products Controller: ", req);
-    // console.log("Add Products Controller: ", req.params);
+    console.log("Add Products Controller: ", req.params);
     try {
         {
             /* let fromData = new FormData();
