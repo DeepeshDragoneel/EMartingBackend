@@ -137,7 +137,7 @@ exports.postGoogleSignUp = async (req, res, next) => {
 };
 
 exports.postSignUp = async (req, res, next) => {
-    console.log(req.body.data);
+    console.log(req.body);
     try {
         let { email, username, pass } = req.body.data;
         email = email.trim();
