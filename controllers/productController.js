@@ -101,7 +101,7 @@ exports.postAddProduct = async (req, res, next) => {
         console.log(result); */
         }
 
-        console.log(req.files.file);
+        console.log(req);
         const uploadCloudinary = await cloudinary.uploader.upload(
             req.files.file.tempFilePath,
             {
@@ -473,7 +473,7 @@ exports.getCartProducts = async (req, res, next) => {
                     }
                     // const originalProduct = await ProductModel.findById(item.productId);
                     if (item.productId.quantity === 0) {
-                        console.log("Second if: ",item);
+                        console.log("Second if: ", item);
                         user.deleteCartProduct(item);
                         console.log("Second if");
                     }
@@ -522,7 +522,7 @@ exports.deleteCartItem = async (req, res, next) => {
         if (user === null) {
             user = await UserGoogle.findById(req.params.id);
         }
-        console.log("DeleteCartItems: ",user);
+        console.log("DeleteCartItems: ", user);
         user.deleteCartProductByBook(req.body.data);
         res.status(202).send("Delected the item from cart!");
     } catch (error) {
