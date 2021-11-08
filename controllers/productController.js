@@ -154,6 +154,26 @@ exports.postAddProduct = async (req, res, next) => {
     } */
 };
 
+exports.postEditProductWithOutImg = async (req, res, next) => {
+    console.log("Edit Product Controller With Out Image: ", req.body);
+    try {
+        const product = await ProductModel.findById(req.body.id);
+        product.title = req.body.title;
+        product.desc = req.body.desc;
+        product.genre = req.body.genre;
+        product.price = req.body.price;
+        product.pages = req.body.pages;
+        product.quantity = req.body.quantity;
+        product.author = req.body.author;
+        product.image = req.body.image;
+        product.save();
+        res.send("SUCCESS");
+    } catch (error) {
+        console.log(error);
+        res.send("ERROR");
+    }
+};
+
 exports.postEditProduct = async (req, res, next) => {
     try {
         console.log("EDITING THE PRODUCT");
