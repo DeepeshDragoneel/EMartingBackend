@@ -42,6 +42,7 @@ router.get("/review", productController.getReview);
 router.post("/paymentSuccessFull", productController.postPaymentSuccessFull);
 
 router.post("/comment", productController.postComment);
+router.post("/appComment", productController.postAppComment);
 
 router.get("/shop", productController.getProducts);
 
