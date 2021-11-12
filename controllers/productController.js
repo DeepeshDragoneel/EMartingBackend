@@ -80,6 +80,52 @@ exports.postComment = async (req, res, next) => {
         res.send("ERROR");
     }
 };
+exports.postAppComment = async (req, res, next) => {
+    try {
+        console.log(req.body);
+        console.log(JSON.parse(req.body));
+        // if (req.body.userId.googleId === undefined) {
+        //     // console.log("Not google: ",req.body.userId);
+        //     // res.send("Done");
+        //     const comment = new Comment({
+        //         rating: req.body.rating,
+        //         heading: req.body.heading,
+        //         desc: req.body.desc,
+        //         userId: req.body.userId._id,
+        //         productId: req.body.productId,
+        //     });
+        //     console.log(comment);
+        //     const result = await comment.save();
+        //     const product = await ProductModel.findById(req.body.productId);
+        //     const rating = (product.rating + req.body.rating) / 2;
+        //     console.log("RATING: ", round(rating, 1));
+        //     product.rating = rating;
+        //     const productResult = await product.save();
+        //     res.send("SUCCESS");
+        // } else {
+        //     // console.log("googleuser : ",req.body.userId);
+        //     // res.send("Done");
+        //     const comment = new Comment({
+        //         rating: req.body.rating,
+        //         heading: req.body.heading,
+        //         desc: req.body.desc,
+        //         googleUserId: req.body.userId._id,
+        //         productId: req.body.productId,
+        //     });
+        //     console.log(comment);
+        //     const result = await comment.save();
+        //     const product = await ProductModel.findById(req.body.productId);
+        //     const rating = (product.rating + req.body.rating) / 2;
+        //     console.log("RATING: ", round(rating, 1));
+        //     product.rating = rating;
+        //     const productResult = await product.save();
+        //     res.send("SUCCESS");
+        // }
+    } catch (error) {
+        console.log(error);
+        res.send("ERROR");
+    }
+};
 
 exports.postAddProduct = async (req, res, next) => {
     // console.log("Add Products Controller: ", req);
@@ -157,15 +203,16 @@ exports.postAddProduct = async (req, res, next) => {
 exports.postEditProductWithOutImg = async (req, res, next) => {
     console.log("Edit Product Controller With Out Image: ", req.body);
     try {
-        const product = await ProductModel.findById(req.body.id);
-        product.title = req.body.title;
-        product.desc = req.body.desc;
-        product.genre = req.body.genre;
-        product.price = req.body.price;
-        product.pages = req.body.pages;
-        product.quantity = req.body.quantity;
-        product.author = req.body.author;
-        product.image = req.body.image;
+        req.body.data = JSON.parse(req.body.data);
+        const product = await ProductModel.findById(req.body.data.id);
+        product.title = req.body.data.title;
+        product.desc = req.body.data.desc;
+        product.genre = req.body.data.genre;
+        product.price = req.body.data.price;
+        product.pages = req.body.data.pages;
+        product.quantity = req.body.data.quantity;
+        product.author = req.body.data.author;
+        product.image = req.body.data.image;
         product.save();
         res.send("SUCCESS");
     } catch (error) {
