@@ -53,6 +53,7 @@ router.get("/getOrders", productController.getOrders);
 router.post("/order/beforePayment", productController.postbeforePayment);
 
 router.post("/cart/delete/:id", productController.deleteCartItem);
+router.post("/appCart/delete/:id", productController.deleteAppCartItem);
 
 router.post("/cart/order", productController.postOrder);
 
