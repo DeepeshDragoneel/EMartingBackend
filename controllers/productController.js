@@ -85,6 +85,11 @@ exports.postAppComment = async (req, res, next) => {
         console.log(req.body);
         // console.log(JSON.parse(req.body));
         console.log(req.body.userId);
+        let user = await User.findById(req.body.userId._id);
+        if (user === null) {
+            user = await UserGoogle.findById(req.body.userId._id);
+        }
+        console.log(user.username);
         // if (req.body.userId.googleId === undefined) {
         //     // console.log("Not google: ",req.body.userId);
         //     // res.send("Done");
