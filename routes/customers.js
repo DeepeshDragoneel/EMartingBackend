@@ -67,6 +67,7 @@ router.post("/verification", productController.orderVerification);
 router.post("/callback", productController.postCallback);
 
 router.post("/cart/:id", productController.addCartProduct);
+router.post("/appCart/:id", productController.addAppCartProduct);
 
 router.get("/cart/:id", productController.getCartProducts);
 

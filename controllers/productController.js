@@ -505,6 +505,24 @@ exports.addCartProduct = async (req, res, next) => {
     }
 };
 
+exports.addAppCartProduct = async (req, res, next) => {
+    try {
+        console.log("ADDING PRODUCT TO CART");
+        console.log(req.params);
+        console.log(req.body.productId);
+        let user = await User.findById(req.params.id);
+        if (user === null) {
+            user = await UserGoogle.findById(req.params.id);
+        }
+        console.log(user);
+        let product = await ProductModel.findById(req.body.productId);
+        user.addToCart(product);
+        res.status(200).send("Successfully added to cart!");
+    } catch (error) {
+        res.status(400).send("Failed");
+    }
+};
+
 exports.getCartProducts = async (req, res, next) => {
     console.log("FETCHING CART PRODUCTS");
     try {
