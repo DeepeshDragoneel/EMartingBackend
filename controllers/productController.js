@@ -630,8 +630,9 @@ exports.deleteAppCartItem = async (req, res, next) => {
         }
         console.log("DeleteCartItems: ", user);
         let product = await Product.findById(req.body.productId);
+        console.log(product);
         user.deleteCartProductByBook(product);
-        res.status(202).json({ status: "Delected the item from cart!" });
+        res.status(202).json({ status: "Deleted the item from cart!" });
     } catch (error) {
         res.status(400).json({ status: "Error deleting cart item!" });
     }
