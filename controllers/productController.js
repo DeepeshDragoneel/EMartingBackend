@@ -84,14 +84,14 @@ exports.postAppComment = async (req, res, next) => {
     try {
         console.log(req.body);
         // console.log(JSON.parse(req.body));
-        console.log(req.body.userId);
+        // console.log(req.body.userId);
         let user = await User.findById(req.body.userId._id);
         if (user === null) {
             user = await UserGoogle.findById(req.body.userId._id);
             // console.log("googleuser : ",req.body.userId);
             // res.send("Done");
             const comment = new Comment({
-                rating: req.body.rating,
+                rating: parseFloat(req.body.rating),
                 heading: req.body.heading,
                 desc: req.body.desc,
                 googleUserId: req.body.userId._id,
@@ -107,7 +107,7 @@ exports.postAppComment = async (req, res, next) => {
             res.send("SUCCESS");
         } else {
             const comment = new Comment({
-                rating: req.body.rating,
+                rating: parseFloat(req.body.rating),
                 heading: req.body.heading,
                 desc: req.body.desc,
                 userId: req.body.userId._id,
