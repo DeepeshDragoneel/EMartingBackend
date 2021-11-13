@@ -629,7 +629,7 @@ exports.deleteAppCartItem = async (req, res, next) => {
             user = await UserGoogle.findById(req.params.id);
         }
         console.log("DeleteCartItems: ", user);
-        let product = await Product.findById(req.body.productId);
+        let product = await ProductModel.findById(req.body.productId);
         console.log(product);
         user.deleteCartProductByBook(product);
         res.status(202).json({ status: "Deleted the item from cart!" });
