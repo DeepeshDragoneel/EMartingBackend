@@ -107,7 +107,7 @@ exports.postAppComment = async (req, res, next) => {
             console.log("RATING: ", round(rating, 1));
             product.rating = rating;
             const productResult = await product.save();
-            res.send("SUCCESS");
+            res.json({ status: "SUCCESS" });
         } else {
             const comment = new Comment({
                 rating: userRating,
@@ -123,48 +123,11 @@ exports.postAppComment = async (req, res, next) => {
             console.log("RATING: ", round(rating, 1));
             product.rating = rating;
             const productResult = await product.save();
-            res.send("SUCCESS");
+            res.json({ status: "SUCCESS" });
         }
-        // if (req.body.userId.googleId === undefined) {
-        //     // console.log("Not google: ",req.body.userId);
-        //     // res.send("Done");
-        //     const comment = new Comment({
-        //         rating: req.body.rating,
-        //         heading: req.body.heading,
-        //         desc: req.body.desc,
-        //         userId: req.body.userId._id,
-        //         productId: req.body.productId,
-        //     });
-        //     console.log(comment);
-        //     const result = await comment.save();
-        //     const product = await ProductModel.findById(req.body.productId);
-        //     const rating = (product.rating + req.body.rating) / 2;
-        //     console.log("RATING: ", round(rating, 1));
-        //     product.rating = rating;
-        //     const productResult = await product.save();
-        //     res.send("SUCCESS");
-        // } else {
-        //     // console.log("googleuser : ",req.body.userId);
-        //     // res.send("Done");
-        //     const comment = new Comment({
-        //         rating: req.body.rating,
-        //         heading: req.body.heading,
-        //         desc: req.body.desc,
-        //         googleUserId: req.body.userId._id,
-        //         productId: req.body.productId,
-        //     });
-        //     console.log(comment);
-        //     const result = await comment.save();
-        //     const product = await ProductModel.findById(req.body.productId);
-        //     const rating = (product.rating + req.body.rating) / 2;
-        //     console.log("RATING: ", round(rating, 1));
-        //     product.rating = rating;
-        //     const productResult = await product.save();
-        //     res.send("SUCCESS");
-        // }
     } catch (error) {
         console.log(error);
-        res.send("ERROR");
+        res.json({ status: "ERROR" });
     }
 };
 
