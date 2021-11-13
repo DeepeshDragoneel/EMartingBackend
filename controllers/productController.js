@@ -517,9 +517,9 @@ exports.addAppCartProduct = async (req, res, next) => {
         console.log(user);
         let product = await ProductModel.findById(req.body.productId);
         user.addToCart(product);
-        res.status(200).send("Successfully added to cart!");
+        res.status(202).json({ status: "Successfully added to cart!" });
     } catch (error) {
-        res.status(400).send("Failed");
+        res.status(400).json({ status: "Error Adding cart item!" });
     }
 };
 
@@ -622,18 +622,18 @@ exports.deleteCartItem = async (req, res, next) => {
 exports.deleteAppCartItem = async (req, res, next) => {
     try {
         console.log("DELETING THE CART ITEM");
-        console.log(req.body.data);
+        console.log(req.body.productId);
         let user;
         user = await User.findById(req.params.id);
         if (user === null) {
             user = await UserGoogle.findById(req.params.id);
         }
         console.log("DeleteCartItems: ", user);
-        let product = await Product.findById(req.body.data);
+        let product = await Product.findById(req.body.productId);
         user.deleteCartProductByBook(product);
-        res.status(202).send("Delected the item from cart!");
+        res.status(202).json({ status: "Delected the item from cart!" });
     } catch (error) {
-        res.status(400).send("Error deleting cart item!");
+        res.status(400).json({ status: "Error deleting cart item!" });
     }
 };
 
