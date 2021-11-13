@@ -83,7 +83,8 @@ exports.postComment = async (req, res, next) => {
 exports.postAppComment = async (req, res, next) => {
     try {
         console.log(req.body);
-        console.log(JSON.parse(req.body));
+        // console.log(JSON.parse(req.body));
+        console.log(req.body.userId);
         // if (req.body.userId.googleId === undefined) {
         //     // console.log("Not google: ",req.body.userId);
         //     // res.send("Done");
