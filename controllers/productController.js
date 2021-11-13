@@ -619,6 +619,24 @@ exports.deleteCartItem = async (req, res, next) => {
     }
 };
 
+exports.deleteAppCartItem = async (req, res, next) => {
+    try {
+        console.log("DELETING THE CART ITEM");
+        console.log(req.body.data);
+        let user;
+        user = await User.findById(req.params.id);
+        if (user === null) {
+            user = await UserGoogle.findById(req.params.id);
+        }
+        console.log("DeleteCartItems: ", user);
+        let product = await Product.findById(req.body.data);
+        user.deleteCartProductByBook(product);
+        res.status(202).send("Delected the item from cart!");
+    } catch (error) {
+        res.status(400).send("Error deleting cart item!");
+    }
+};
+
 exports.getCallBack = (req, res) => {
     console.log("getCallBack    ");
     res.redirect("http://localhost:8000");
