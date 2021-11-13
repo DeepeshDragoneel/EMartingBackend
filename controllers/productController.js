@@ -83,45 +83,48 @@ exports.postComment = async (req, res, next) => {
 exports.postAppComment = async (req, res, next) => {
     try {
         console.log(req.body);
+        console.log(parseFloat(req.body.rating));
+        let rating = parseFloat(req.body.rating);
+        console.log(rating);
         // console.log(JSON.parse(req.body));
         // console.log(req.body.userId);
         let user = await User.findById(req.body.userId._id);
-        if (user === null) {
-            user = await UserGoogle.findById(req.body.userId._id);
-            // console.log("googleuser : ",req.body.userId);
-            // res.send("Done");
-            const comment = new Comment({
-                rating: parseFloat(req.body.rating),
-                heading: req.body.heading,
-                desc: req.body.desc,
-                googleUserId: req.body.userId._id,
-                productId: req.body.productId,
-            });
-            console.log(comment);
-            const result = await comment.save();
-            const product = await ProductModel.findById(req.body.productId);
-            const rating = (product.rating + req.body.rating) / 2;
-            console.log("RATING: ", round(rating, 1));
-            product.rating = rating;
-            const productResult = await product.save();
-            res.send("SUCCESS");
-        } else {
-            const comment = new Comment({
-                rating: parseFloat(req.body.rating),
-                heading: req.body.heading,
-                desc: req.body.desc,
-                userId: req.body.userId._id,
-                productId: req.body.productId,
-            });
-            console.log(comment);
-            const result = await comment.save();
-            const product = await ProductModel.findById(req.body.productId);
-            const rating = (product.rating + req.body.rating) / 2;
-            console.log("RATING: ", round(rating, 1));
-            product.rating = rating;
-            const productResult = await product.save();
-            res.send("SUCCESS");
-        }
+        // if (user === null) {
+        //     user = await UserGoogle.findById(req.body.userId._id);
+        //     // console.log("googleuser : ",req.body.userId);
+        //     // res.send("Done");
+        //     const comment = new Comment({
+        //         rating: parseFloat(req.body.rating),
+        //         heading: req.body.heading,
+        //         desc: req.body.desc,
+        //         googleUserId: req.body.userId._id,
+        //         productId: req.body.productId,
+        //     });
+        //     console.log(comment);
+        //     const result = await comment.save();
+        //     const product = await ProductModel.findById(req.body.productId);
+        //     const rating = (product.rating + req.body.rating) / 2;
+        //     console.log("RATING: ", round(rating, 1));
+        //     product.rating = rating;
+        //     const productResult = await product.save();
+        //     res.send("SUCCESS");
+        // } else {
+        //     const comment = new Comment({
+        //         rating: parseFloat(req.body.rating),
+        //         heading: req.body.heading,
+        //         desc: req.body.desc,
+        //         userId: req.body.userId._id,
+        //         productId: req.body.productId,
+        //     });
+        //     console.log(comment);
+        //     const result = await comment.save();
+        //     const product = await ProductModel.findById(req.body.productId);
+        //     const rating = (product.rating + req.body.rating) / 2;
+        //     console.log("RATING: ", round(rating, 1));
+        //     product.rating = rating;
+        //     const productResult = await product.save();
+        //     res.send("SUCCESS");
+        // }
         // if (req.body.userId.googleId === undefined) {
         //     // console.log("Not google: ",req.body.userId);
         //     // res.send("Done");
